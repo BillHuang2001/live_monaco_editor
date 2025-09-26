@@ -188,4 +188,26 @@ defmodule LiveMonacoEditor do
     to = Keyword.get(opts, :to, @default_path)
     push_event(socket, "lme:set_value:#{to}", %{"value" => value})
   end
+
+  @doc """
+  Update the editor's options.
+
+  ## Examples
+
+      LiveMonacoEditor.update_opts(socket, %{"theme" => "vs-dark"}, to: "my_script.exs")
+
+  ## Options
+
+    * `:to` - the editor's `path` name that will get the options updated. Defaults to "#{@default_path}".
+
+  See https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneCodeEditor.html#updateOptions for more info.
+  """
+  @spec update_options(Socket.t(), map(), keyword()) :: Socket.t()
+  def update_options(socket, new_opts, opts \\ []) when is_map(new_opts) do
+    to = Keyword.get(opts, :to, @default_path)
+
+    push_event(socket, "lme:update_options:#{to}", %{
+      "opts" => new_opts
+    })
+  end
 end
