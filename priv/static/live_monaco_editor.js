@@ -727,6 +727,9 @@ var LiveMonacoEditor = (() => {
         this.handleEvent("lme:set_value:" + this.el.dataset.path, (data) => {
           this.codeEditor.standalone_code_editor.setValue(data.value);
         });
+        this.handleEvent("lme:update_options:" + this.el.dataset.path, (data) => {
+          this.codeEditor.standalone_code_editor.updateOptions(data.opts);
+        });
         this.el.querySelectorAll("textarea").forEach((textarea) => {
           textarea.setAttribute(
             "name",
